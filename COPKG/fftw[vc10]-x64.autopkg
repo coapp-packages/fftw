@@ -1,8 +1,0 @@
-// details for x64 version of fftw package
-// build with: autopackage x64.autopkg fftw.autopkg  
-@import "fftw.inc";
-
-#define { 
-    flavor: "vc10"; 
-    arch : "x64";
-}

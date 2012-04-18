@@ -1,20 +1,22 @@
 @import "version.inc" ;
 @import "outercurve.inc" ;
 
+#define { 
+    flavor: "${COMP??vc10}"; 
+    arch : "${PLAT??x86}";
+}
+
 package {
     name: "fftw-dev[${flavor}]";
     version: "${package-version}";
     arch : "${arch}";
-
     display-name: "fftw Developer library";
 }
 
 metadata {
     summary: "The fftw developer library";
     description: @"FFTW is a free collection of fast C routines for computing the Discrete Fourier Transform in one or more dimensions."; 
-
-    icon: @"fftw.png";
-    
+    icon: @"fftw.png
     author-version : "3.3.1";
     bug-tracker: "https://github.com/coapp-packages/fftw/issues";
     stability : "0";
@@ -24,7 +26,7 @@ metadata {
 }
 
 files[libs] {
-    root: @"..\output\vc10\${arch}\Release\bin\";
+    root: @"..\output\${flavor}\${arch}\Release\bin\";
     
     include: {
         "*.lib",

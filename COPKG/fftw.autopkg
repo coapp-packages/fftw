@@ -1,63 +1,36 @@
 @import "version.inc";
 @import "outercurve.inc";
 
+#define { 
+    flavor: "${COMP??vc10}"; 
+    arch : "${PLAT??x86}";
+}
+
 package {
     name: "fftw[${flavor}]";
     version: "${package-version}";
     arch : "${arch}";
-    
     display-name: "fftw";
-    location: "http://coapp.org/repository/${OutputFilename}";
-
+    location: "http://coapp.org/repository/${OutputFilename
     feed: "http://coapp.org/repository/packages.atom.xml";
     publisher: "CoApp Project";
-}
-
-files[exes] {
-    root: @"..\output\vc10\${arch}\Release\bin";
-    
-    include: {
-        "*.exe",
-    };
-    
-    trim-path: all;
-};
-
-
-files[dlls] {
-    root: @"..\output\vc10\${arch}\Release\bin";
-  
-    include: {
-        "*.dll",
-    };
-    
-    trim-path: all;
-};
-
-license[GPL] {
-    license-url: "";
-    license-type: "GPL";
-}
-
-files[files-to-sign] {
-    include: { 
-        exes,
-        dlls
-    };    
 }
 
 metadata {
     summary: "libfftw";
     description:  @"FFTW is a free collection of fast C routines for computing the Discrete Fourier Transform in one or more dimensions"; 
-
     icon: @"fftw.png";
-    
     author-version : "3.3.1";
     bug-tracker: "https://github.com/coapp-packages/fftw/issues";
     stability : "0";
     licenses : {
         GPL
     };
+}
+
+license[GPL] {
+    license-url: "http://www.gnu.org/licenses/gpl.html";
+    license-type: "GPL";
 }
 
 compatability-policy {
@@ -68,16 +41,41 @@ compatability-policy {
     }; // if not specified, find the versions by looking at the feeds and finding all the major/minor versions in range.
 }
 
-application {
-    include : {
+files[exes] {
+    root: @"..\output\${flavor}\${arch}\Release\bin";
+    
+    include: {
+        "*.exe",
+    };
+    
+    trim-path: all;
+};
+
+files[dlls] {
+    root: @"..\output\${flavor}\${arch}\Release\bin";
+  
+    include: {
+        "*.dll",
+    };
+    
+    trim-path: all;
+};
+
+files[files-to-sign] {
+    include: { 
         exes,
+        dlls
+    };    
+}
+
+assembly[fftw] {
+    include : {
+        dlls
     };
 }
 
-manifest[things-that-need-them] {
-    // all of our EXEs need to get the manifest entries for the assemblies we're creating in this package
-    
-    assembly : {
+manifest[forexes] {
+   assembly : {
         fftw
     };
     
@@ -86,9 +84,9 @@ manifest[things-that-need-them] {
     };
 }
 
-assembly[fftw] {
+application {
     include : {
-        dlls
+        exes,
     };
 }
 

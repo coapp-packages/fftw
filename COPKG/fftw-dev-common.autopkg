@@ -10,10 +10,8 @@ package {
 
 metadata {
     summary: "The fftw developer library (common)";
-    description: @"FFTW is a free collection of fast C routines for computing the Discrete Fourier Transform in one or more dimensions."; 
-        
+    description: @"FFTW is a free collection of fast C routines for computing the Discrete Fourier Transform in one or more dimensions.";         
     icon: @"fftw.png";
-    
     author-version : "3.3.1";
     bug-tracker: "https://github.com/coapp-packages/fftw/issues";
     stability : "0";
@@ -23,7 +21,7 @@ metadata {
 }
 
 files[headers-kernel] {
-    root: "..\\kernel";
+    root: @"..\kernel";
 
     include: {
 		//not sure if we need all these, maybe ill work it out later..
@@ -32,12 +30,11 @@ files[headers-kernel] {
     
     trim-path:all;
     
-    // ensures that all the header files end up in a subfolder called 'include'
     destination-path:"include";
 }
 
 files[headers-libbench2] {
-    root: "..\\libbench2";
+    root: @"..\libbench2";
 
     include: {
 		//not sure if we need all these, maybe ill work it out later..
@@ -46,12 +43,11 @@ files[headers-libbench2] {
     
     trim-path:all;
     
-    // ensures that all the header files end up in a subfolder called 'include'
     destination-path:"include";
 }
 
 files[headers-api] {
-    root: "..\\api";
+    root: @"..\api";
 
     include: {
 		//not sure if we need all these, maybe ill work it out later..
@@ -60,12 +56,11 @@ files[headers-api] {
     
     trim-path:all;
     
-    // ensures that all the header files end up in a subfolder called 'include'
     destination-path:"include";
 }
 
 files[headers-dft] {
-    root: "..\\dft";
+    root: @"..\dft";
 
     include: {
 		//not sure if we need all these, maybe ill work it out later..
@@ -74,12 +69,11 @@ files[headers-dft] {
     
     trim-path:all;
     
-    // ensures that all the header files end up in a subfolder called 'include'
     destination-path:"include";
 }
 
 files[headers-rdft] {
-    root: "..\\rdft";
+    root: @"..\rdft";
 
     include: {
 		//not sure if we need all these, maybe ill work it out later..
@@ -88,25 +82,22 @@ files[headers-rdft] {
     
     trim-path:all;
     
-    // ensures that all the header files end up in a subfolder called 'include'
     destination-path:"include";
 }
 
 
 files[docs] {
-    root: "..\\doc\\";
+    root: @"..\doc\";
     include: {
         "*"
     };
     
     trim-path:all;
     
-    // ensures that all the documentation files end up in a subfolder called 'docs'
     destination-path:"docs";
 
 }
 
-// the 'name' of the developer library isn't terribly important...
 developer-library[fftw] {
     headers: { 
         headers-kernel,
