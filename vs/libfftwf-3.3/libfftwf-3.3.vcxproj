@@ -122,27 +122,43 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\output\vc10\x86\$(Configuration)\bin</OutDir>
+    <IntDir>$(SolutionDir)\..\output\vc10\x86\$(Configuration)\int</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\output\vc10\x64\$(Configuration)\bin</OutDir>
+    <IntDir>$(SolutionDir)\..\output\vc10\x64\$(Configuration)\int</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static-Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\output\vc10\x86\$(Configuration)\bin</OutDir>
+    <IntDir>$(SolutionDir)\..\output\vc10\x86\$(Configuration)\int</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static-Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\output\vc10\x64\$(Configuration)\bin</OutDir>
+    <IntDir>$(SolutionDir)\..\output\vc10\x64\$(Configuration)\int</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\output\vc10\x86\$(Configuration)\bin</OutDir>
+    <IntDir>$(SolutionDir)\..\output\vc10\x86\$(Configuration)\int</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\output\vc10\x64\$(Configuration)\bin</OutDir>
+    <IntDir>$(SolutionDir)\..\output\vc10\x64\$(Configuration)\int</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static-Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\output\vc10\x86\$(Configuration)\bin</OutDir>
+    <IntDir>$(SolutionDir)\..\output\vc10\x86\$(Configuration)\int</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Static-Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\..\output\vc10\x64\$(Configuration)\bin</OutDir>
+    <IntDir>$(SolutionDir)\..\output\vc10\x64\$(Configuration)\int</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

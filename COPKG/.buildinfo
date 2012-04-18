@@ -1,0 +1,130 @@
+/* target information */
+@import "version.inc";
+
+
+#product-info  {
+	product-name: "fftw";
+	version: "3.3.1";
+	original-source-location: "";
+	original-source-website: "";
+	license: "GPL";
+	packager: "Hamish C";
+}
+
+test {
+    default : false;
+    uses: release;
+    build-command: @"
+	    rem";
+};
+
+package {
+    
+    default : false;
+    uses : sign;
+    
+    targets: { 
+        @"copkg\fftw[vc10]-${package-version}-x86.msi",
+        @"copkg\fftw-dev[vc10]-${package-version}-x86.msi",
+        @"copkg\fftw-dev-common-${package-version}-any.msi",
+        @"copkg\fftw[vc10]-${package-version}-x64.msi",
+        @"copkg\fftw-dev[vc10]-${package-version}-x64.msi"
+    };
+    
+    build-command : @"
+        REM THERE IS SOME GOOFY STUFF IN HERE TO WORK AROUND A COUPLE BUGS IN AUTOPACKAGE.
+        REM FIXES COMING SOON...
+        cd COPKG
+        coapp add-feed %cd%\
+        coapp --force-scan list 
+        autopackage fftw-dev-common.autopkg || goto failed
+        coapp --force-scan list 
+        autopackage fftw[vc10]-x86.autopkg fftw-dev[vc10]-x86.autopkg || goto failed
+        coapp --force-scan list 
+        autopackage fftw[vc10]-x64.autopkg fftw-dev[vc10]-x64.autopkg || goto failed
+        coapp --force-scan list 
+        coapp remove-feed %cd%\
+        ptk update-version
+    ";
+
+	clean-command: @"del COPKG\*.msi COPKG\*.wixpdb";
+	
+};
+
+
+update-version {
+    default : false;
+    
+    build-command : @"
+        REM auto-increment version.inc file...
+        
+        cd COPKG
+        setlocal EnableDelayedExpansion
+        for /F ""tokens=4,5,6,7  delims=.; "" %%v in (version.inc) do (
+            set /a build=%%y + 1
+            set VERSTRING=#define { package-version: %%v.%%w.%%x.!build!; }
+        )
+        echo !VERSTRING! > version.inc
+    ";
+}
+
+release {
+    set: BuildCfg="Release";
+    uses: x86;
+    uses: x64;
+};
+
+sign {
+    default : false;
+    uses: release;
+    build-command: @"simplesigner.exe --nologo --sign output\vc10\x86\Release\bin**.dll output\vc10\x86\Release\bin\**.exe output\vc10\x64\Release\bin\**.dll output\vc10\x64\Release\bin\**.exe";
+};
+
+
+x86 {
+    default : false;
+    compiler: vc10;
+    platform: x86;
+    
+    targets: { 
+		"output\vc10\x86\Release\bin\bench.exe",
+        "output\vc10\x86\Release\bin\benchf.exe",
+        "output\vc10\x86\Release\bin\libfftw-3.3.dll",
+        "output\vc10\x86\Release\bin\libfftw-3.3.lib",
+        "output\vc10\x86\Release\bin\libfftwf-3.3.dll",
+        "output\vc10\x86\Release\bin\libfftwf-3.3.lib",
+	};
+	
+    build-command:@"
+		msbuild /p:Platform=win32 /p:Configuration=Release vs\fftw-3.3-libs.sln
+	";
+    
+    clean-command:@"
+       if exist output rmdir /s /q output > nul 2> nul
+       del /S /Q /A - *.sdf *.suo *.user *.exe *.pdb > nul 2>NUL
+    ";
+};
+
+x64 {
+    default : false;
+    compiler: vc10;
+    platform: x64;
+    
+    targets: { 
+		"output\vc10\x64\Release\bin\bench.exe",
+        "output\vc10\x64\Release\bin\benchf.exe",
+        "output\vc10\x64\Release\bin\libfftw-3.3.dll",
+        "output\vc10\x64\Release\bin\libfftw-3.3.lib",
+        "output\vc10\x64\Release\bin\libfftwf-3.3.dll",
+        "output\vc10\x64\Release\bin\libfftwf-3.3.lib",
+	};
+	
+    build-command:@"
+		msbuild /p:Platform=x64 /p:Configuration=Release vs\fftw-3.3-libs.sln
+	";
+    
+    clean-command:@"
+       if exist output rmdir /s /q output > nul 2> nul
+       del /S /Q /A - *.sdf *.suo *.user *.exe *.pdb > nul 2>NUL
+    ";
+};
